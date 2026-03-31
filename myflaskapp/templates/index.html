@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Pikmin App</title>
+    </head>
+    <body>
+        <h1>Hello from Pikmin!</h1>
+        <img
+            src="{{ url_for('static', filename='red-pikmin.png') }}"
+            alt="Red Pikmin"
+        />
+
+        <audio
+            id="pikminSound"
+            src="{{ url_for('static', filename='Voicy_pikmin greet.mp3') }}"
+            preload="auto"
+        ></audio>
+
+        <script>
+            const pikminSound = document.getElementById("pikminSound");
+
+            function playRandomly() {
+                // Generate a random delay between 3000ms (3 seconds) and 10000ms (10 seconds)
+                // You can adjust these min/max values to change the random range
+                const minDelay = 3000; // Minimum delay in milliseconds
+                const maxDelay = 10000; // Maximum delay in milliseconds
+                const randomDelay =
+                    Math.floor(Math.random() * (maxDelay - minDelay + 1)) +
+                    minDelay;
+
+                console.log(
+                    `Next Pikmin sound in ${randomDelay / 1000} seconds.`,
+                ); // Optional: log for debugging
+
+                setTimeout(() => {
+                    pikminSound.play();
+                    playRandomly(); // Call itself to schedule the next play
+                }, randomDelay);
+            }
+
+            // Start the first random play
+            playRandomly();
+        </script>
+    </body>
+</html>
